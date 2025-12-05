@@ -5,8 +5,8 @@ import java.util.Vector;
 public class Block {
 
     double mass;
-    double[] pos;
-    double[] vel;
+    double[] pos = new double[3];
+    double[] vel  = new double[3];
     public Block(double mass, double[] pos, double[] vel) {
         this.mass = mass;
         this.pos = pos;
