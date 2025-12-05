@@ -9,13 +9,13 @@ public class Main {
         Block block = new Block(0.3, new double[] {1,2,3}, new double [] {0,0,0});
 
         //Normal Vector
-        Vector<Double> nrml = new Vector<>();
+        Vector<Double> nrml = new Vector<>(3);
         nrml.add(-5.0);
         nrml.add(4.0);
         nrml.add(5.0);
 
         //Gravity Vector
-        Vector<Double> grav = new Vector<>();
+        Vector<Double> grav = new Vector<>(3);
         grav.add(0.0);
         grav.add(0.0);
         grav.add(-9.81);
@@ -29,6 +29,8 @@ public class Main {
         System.out.println(statFric);
         System.out.println(kineFric);
 
+        double magNrml = Math.sqrt(Math.pow(nrml.get(0),2))+(Math.pow(nrml.get(1),2))+(Math.pow(nrml.get(2),2));
+        System.out.println(magNrml);
     }
 }
 
