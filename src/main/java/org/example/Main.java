@@ -25,7 +25,7 @@ public class Main {
         double kineFric = 0.3;
 
         //Normal vector magnitude
-        double magNrml = Math.sqrt((Math.pow(nrml[0],2))+(Math.pow(nrml[1],2))+(Math.pow(nrml[2],2)));
+        double magNrml = magCalc(nrml);
 
         //Normal vector direction
         double[] directNrml = new double[3];
@@ -41,22 +41,58 @@ public class Main {
 
         //Fgn
         double[] Fgn = new double[3];
-        Fgn[0] = ((Fg[0] * directNrml[0])*directNrml[0]);
-        Fgn[1] = ((Fg[1] * directNrml[1])*directNrml[1]);
-        Fgn[2] = ((Fg[2] * directNrml[2])*directNrml[2]);
+        Fgn[0] = dotProduct(Fg, directNrml)*directNrml[0]; //should be a negative for N[0] = -5
+        Fgn[1] = dotProduct(Fg, directNrml)*directNrml[1];
+        Fgn[2] = dotProduct(Fg, directNrml)*directNrml[2];
+
+        //Fgp
+        double[] Fgp = new double[3];
+        Fgp[0] = (Fg[0]-Fgn[0]);
+        Fgp[1] = (Fg[1]-Fgn[1]);
+        Fgp[2] = (Fg[2]-Fgn[2]);
+
+        //magnitude of Fgp
+        double magFgp = magCalc(Fgp);
+
+        //Fn
+        double[] Fn = new double[3];
+        Fn[0] = (Fgn[0]*-1);
+        Fn[1] = (Fgn[1]*-1);
+        Fn[2] = (Fgn[2]*-1);
+
+        //magnitude of Fn
+        double magFn = magCalc(Fn);
 
         //print outs
         System.out.println(block);
-        System.out.println(Arrays.toString(nrml));
-        System.out.println(Arrays.toString(grav));
-        System.out.println(statFric);
-        System.out.println(kineFric);
-        System.out.println(magNrml);
-        System.out.println(Arrays.toString(directNrml));
-        System.out.println(Arrays.toString(Fg));
+        System.out.println("Normal Vector: "+Arrays.toString(nrml));
+        System.out.println("Force of Gravity: "+Arrays.toString(grav));
+        System.out.println("Coefficient of static friction: " + statFric);
+        System.out.println("Coefficient of kinetic friction: " + kineFric);
+        System.out.println("Magnitude of Normal Vector: " + magNrml);
+        System.out.println("Direction of Normal Vector: " + Arrays.toString(directNrml));
+        System.out.println("Fg: " + Arrays.toString(Fg));
+        System.out.println("Fgn: " + Arrays.toString(Fgn));
+        System.out.println("Fgp: " + Arrays.toString(Fgp));
+        System.out.println("Magnitude of Fgp: " + magFgp);
+        System.out.println("Fn: " + Arrays.toString(Fn));
+        System.out.println("Magnitude of Fn: " + magFn);
     }
 
+    public static double magCalc(double[] vector) {
+        double result;
+        result = Math.sqrt((Math.pow(vector[0], 2) + Math.pow(vector[1], 2) + Math.pow(vector[2], 2)));
 
+        return result;
+    }
+
+    public static double dotProduct(double[] v1, double[] v2) {
+        double result;
+
+        result = (v1[0] * v2[0]) + (v1[1] * v2[1]) + (v1[2] * v2[2]);
+
+        return result;
+    }
 
 }
 
