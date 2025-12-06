@@ -5,6 +5,10 @@ public class Main {
     public static void main(String[] args) {
 
         //region Initial Conditions
+        double target = 1;
+        double startTime = 0;
+        double timeSteps = 10;
+
         //Gravity Vector
         double[] grav = new double[3];
         grav[0] = 0;
@@ -54,6 +58,9 @@ public class Main {
 
         System.out.println("Acceleration: " + Arrays.toString(acceleration) + "m/s^2");
 
+        double h = (target - startTime) / timeSteps;
+
+        // mutliply accel by 1/kineticFric
 
 //        //Test if static friction will keep the block static.
 //
@@ -71,7 +78,7 @@ public class Main {
 //        }
 
     }
-    static void Euler(){
+    static void Euler(double[] position, double[] velocity, double[] acceleration, double step){
 
 
     }
