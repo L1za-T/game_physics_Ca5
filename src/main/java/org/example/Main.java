@@ -47,6 +47,13 @@ public class Main {
         System.out.println("Magnitude of Fn: " + calc.getMagFn());
         System.out.println("Net force on block " + Arrays.toString(calc.getFnet()));
 
+        double[] acceleration = new double[3];
+        acceleration[0] = (1/block.getMass() * calc.getFnet()[0]);
+        acceleration[1] = (1/block.getMass() * calc.getFnet()[1]);
+        acceleration[2] = (1/block.getMass() * calc.getFnet()[2]);
+
+        System.out.println("Acceleration: " + Arrays.toString(acceleration) + "m/s^2");
+
 
 //        //Test if static friction will keep the block static.
 //
@@ -64,7 +71,10 @@ public class Main {
 //        }
 
     }
+    static void Euler(){
 
+
+    }
 
 
 }
