@@ -1,12 +1,10 @@
 package org.example;
-
 import java.util.Arrays;
-import java.util.Vector;
 public class Block {
 
     double mass;
-    double[] pos = new double[3];
-    double[] vel  = new double[3];
+    double[] pos;
+    double[] vel;
     public Block(double mass, double[] pos, double[] vel) {
         this.mass = mass;
         this.pos = pos;
