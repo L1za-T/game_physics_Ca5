@@ -139,13 +139,13 @@ public class NetForceCalc {
         //Fgn
         Fgn = calcFgn(Fg, directNrml);
         //Fgp
-        Fgp = calcFgp(Fg, Fgn);
+        Fgp = subtractVec(Fg, Fgn);
         //Fn
         Fn = negVector(Fgn);
         Ff = negVector(Fgp);
 
         //Test for static friction
-        if((getStatFric() * magCalc(Fn)) >= magCalc(Fgp)){
+        if(isStatic(Fn, Fgp)){
             Fnet[0] = 0.0;
             Fnet[1] = 0.0;
             Fnet[2] = 0.0;
@@ -159,15 +159,6 @@ public class NetForceCalc {
 
             Fnet = addVecs(Fgp, Ff);
         }
-    }
-
-    public double[] calcDirection(double[] v){
-        double[] result = new double[3];
-        double vMag = magCalc(v);
-        result[0] = (1/vMag)* v[0];
-        result[1] = (1/vMag)* v[1];
-        result[2] = (1/vMag)* v[2];
-        return result;
     }
     public double[] calcFg(double mass, double[] grav){
         double[] result = new double[3];
@@ -184,11 +175,19 @@ public class NetForceCalc {
         result[2] = (dot*directNrml[2]);
         return result;
     }
-    public double[] calcFgp(double[] Fg, double[] Fgn){
+    public double[] subtractVec(double[] v1, double[] v2){
         double[] result = new double[3];
-        result[0] = (Fg[0]-Fgn[0]);
-        result[1] = (Fg[1]-Fgn[1]);
-        result[2] = (Fg[2]-Fgn[2]);
+        result[0] = (v1[0]-v2[0]);
+        result[1] = (v1[1]-v2[1]);
+        result[2] = (v1[2]-v2[2]);
+        return result;
+    }
+    public double[] calcDirection(double[] v){
+        double[] result = new double[3];
+        double vMag = magCalc(v);
+        result[0] = (1/vMag)* v[0];
+        result[1] = (1/vMag)* v[1];
+        result[2] = (1/vMag)* v[2];
         return result;
     }
     public double[] negVector(double[] v){
@@ -214,6 +213,12 @@ public class NetForceCalc {
         result[1] = v1[1] + v2[1];
         result[2] = v1[2] + v2[2];
         return result;
+    }
+    public boolean isStatic(double[] Fn, double[] Fgp){
+        if((getStatFric() * magCalc(Fn)) >= magCalc(Fgp)) {
+            return true;
+        }
+        return false;
     }
 }
 
