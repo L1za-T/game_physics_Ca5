@@ -214,6 +214,15 @@ public class NetForceCalc {
         result[2] = v1[2] + v2[2];
         return result;
     }
+    public double[] squareVecs(double[] v1, double f){
+        double[] result = new double[3];
+        result[0] = Math.pow(v1[0], f);
+        result[1] = Math.pow(v1[1], f);
+        result[2] = Math.pow(v1[2], f);
+
+        return result;
+    }
+
     public boolean isStatic(double[] Fn, double[] Fgp){
         if((getStatFric() * magCalc(Fn)) >= magCalc(Fgp)) {
             return true;

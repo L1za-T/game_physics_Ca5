@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) {
 
         //region Initial Conditions
-        double target = 10;
+        double target = 5;
         double startTime = 0;
         double timeSteps = 10;
 
@@ -85,23 +85,29 @@ public class Main {
                 //tn
                 time = tn(i, h);
                 t.add(time);
+                System.out.println(time);
+                System.out.println(h);
                 //pn
                 posTracker.add(nextCalc(posTracker.get(step - 1), velTracker.get(step - 1), h));
+                System.out.println(Arrays.toString(posTracker.get(step)));
                 //vn
                 velTracker.add(nextCalc(velTracker.get(step - 1), accTracker.get(step - 1), h));
+                System.out.println(Arrays.toString(velTracker.get(step)));
                 //an
-                accTracker.add(nextCalc(accTracker.get(step - 1), accTracker.get(step - 1), h));
+                accTracker.add(calc.squareVecs(nextCalc(accTracker.get(step - 1), accTracker.get(step - 1), h),2));
+                System.out.println(Arrays.toString(accTracker.get(step)));
 
                 step++;
             }
 
         }
 
-        for(int i = 0; i <= step; i++){
-            System.out.println("Position at time: "+t.get(i) + " is: "+Arrays.toString(posTracker.get(i)));
-            System.out.println("Velocity at time: "+t.get(i)+" is: "+Arrays.toString(velTracker.get(i)));
-            System.out.println("Acceleration at time: "+t.get(i)+" is: "+Arrays.toString(accTracker.get(i)));
-        }
+//        for(int i = 0; i < target; i++){
+//            System.out.println(i);
+//            System.out.println("Position at time: "+t.get(i) + " is: "+Arrays.toString(posTracker.get(i)));
+//            System.out.println("Velocity at time: "+t.get(i)+" is: "+Arrays.toString(velTracker.get(i)));
+//            System.out.println("Acceleration at time: "+t.get(i)+" is: "+Arrays.toString(accTracker.get(i)));
+//        }
 
     }
 
@@ -115,6 +121,13 @@ public class Main {
         v1[2] = (v2[2]*h);
 
         return  v1;
+    }
+    static double round(double bigNum){
+        String s;
+        double temp = bigNum;
+        s = String.format("%.5g%n", temp);
+        bigNum = Double.parseDouble(s);
+        return bigNum;
     }
 }
 
