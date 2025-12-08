@@ -1,14 +1,22 @@
 package org.example;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
+        PrintStream out = new PrintStream(new FileOutputStream("output.txt"));
+        PrintStream console = System.out;
+
 
         //region Initial Conditions
         double target = 10;
         double startTime = 0;
-        double timeSteps = 50;
+        double timeSteps = 20;
 
         //Gravity Vector
         double[] grav = new double[3];
@@ -92,14 +100,18 @@ public class Main {
                 velTracker.add(nextCalc(velTracker.get(step - 1), accTracker.get(step - 1), h));
 
                 //an
-                accTracker.add((nextCalc(accTracker.get(step - 1), accTracker.get(step - 1), h)));
+                accTracker.add(calc.multiplyVecConst(nextCalc(accTracker.get(step - 1), accTracker.get(step - 1), kineFric),h));
 
-
+                System.out.println(time);
                 step++;
             }
 
         }
 
+
+        System.out.println("Position at time: 0.0 is: "+Arrays.toString(posTracker.get(0)));
+        System.out.println("Velocity at time: 0.0 is: "+Arrays.toString(velTracker.get(0)));
+        System.out.println("Acceleration at time: 0.0 is: "+Arrays.toString(accTracker.get(0)));
 
         for(int i = 0; i < step-1; i++){
             System.out.println(i+1);
@@ -107,6 +119,10 @@ public class Main {
             System.out.println("Velocity at time: "+round(t.get(i))+" is: "+Arrays.toString(velTracker.get(i)));
             System.out.println("Acceleration at time: "+round(t.get(i))+" is: "+Arrays.toString(accTracker.get(i)));
         }
+
+        System.setOut(out);
+        System.out.println("Test");
+        System.setOut(console);
 
     }
 
@@ -129,6 +145,23 @@ public class Main {
         s = String.format("%.5g%n", temp);
         bigNum = Double.parseDouble(s);
         return bigNum;
+    }
+    public String convertToCsv(String[] data){
+        return Stream.of(data).map(this::escapeSpecialCharacters).collect(Collectors.joining(","));
+    }
+
+    public String escapeSpecialCharacters(String data){
+        if (data== null){
+            throw new IllegalArgumentException("Input data cannot be null");
+        }
+        String escapedData = data.replaceAll("\\R", " ");
+        if (escapedData.contains(",")|| escapedData.contains("\"")|| escapedData.contains("'")){
+
+            escapedData = escapedData.replace("\"","\"\"");
+            escapedData = "\"" + escapedData + "\"";
+        }
+
+        return escapedData;
     }
 }
 
