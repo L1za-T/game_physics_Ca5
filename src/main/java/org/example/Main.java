@@ -6,9 +6,9 @@ public class Main {
     public static void main(String[] args) {
 
         //region Initial Conditions
-        double target = 5;
+        double target = 10;
         double startTime = 0;
-        double timeSteps = 10;
+        double timeSteps = 50;
 
         //Gravity Vector
         double[] grav = new double[3];
@@ -85,29 +85,28 @@ public class Main {
                 //tn
                 time = tn(i, h);
                 t.add(time);
-                System.out.println(time);
-                System.out.println(h);
                 //pn
                 posTracker.add(nextCalc(posTracker.get(step - 1), velTracker.get(step - 1), h));
-                System.out.println(Arrays.toString(posTracker.get(step)));
+
                 //vn
                 velTracker.add(nextCalc(velTracker.get(step - 1), accTracker.get(step - 1), h));
-                System.out.println(Arrays.toString(velTracker.get(step)));
+
                 //an
-                accTracker.add(calc.squareVecs(nextCalc(accTracker.get(step - 1), accTracker.get(step - 1), h),2));
-                System.out.println(Arrays.toString(accTracker.get(step)));
+                accTracker.add((nextCalc(accTracker.get(step - 1), accTracker.get(step - 1), h)));
+
 
                 step++;
             }
 
         }
 
-//        for(int i = 0; i < target; i++){
-//            System.out.println(i);
-//            System.out.println("Position at time: "+t.get(i) + " is: "+Arrays.toString(posTracker.get(i)));
-//            System.out.println("Velocity at time: "+t.get(i)+" is: "+Arrays.toString(velTracker.get(i)));
-//            System.out.println("Acceleration at time: "+t.get(i)+" is: "+Arrays.toString(accTracker.get(i)));
-//        }
+
+        for(int i = 0; i < step-1; i++){
+            System.out.println(i+1);
+            System.out.println("Position at time: "+ round(t.get(i))+ " is: "+Arrays.toString(posTracker.get(i)));
+            System.out.println("Velocity at time: "+round(t.get(i))+" is: "+Arrays.toString(velTracker.get(i)));
+            System.out.println("Acceleration at time: "+round(t.get(i))+" is: "+Arrays.toString(accTracker.get(i)));
+        }
 
     }
 
@@ -116,11 +115,13 @@ public class Main {
     }
 
     static double[] nextCalc(double[] v1, double[] v2, double h){
-        v1[0] = (v2[0]*h);
-        v1[1] = (v2[1]*h);
-        v1[2] = (v2[2]*h);
+        double[] result = new double[3];
 
-        return  v1;
+        result[0] = v1[0]+(v2[0]*h);
+        result[1] = v1[1]+(v2[1]*h);
+        result[2] = v1[2]+(v2[2]*h);
+
+        return  result;
     }
     static double round(double bigNum){
         String s;
