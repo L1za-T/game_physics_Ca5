@@ -9,8 +9,12 @@ import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
-        PrintStream out = new PrintStream(new FileOutputStream("output.txt"));
+        //region Print to File
+        PrintStream f = new PrintStream(new FileOutputStream("outputs/Results.txt"));
         PrintStream console = System.out;
+        System.setOut(f);
+
+        //endregion
 
         //region Initial Conditions
         double target = 10;
@@ -43,22 +47,12 @@ public class Main {
         acceleration[1] = ((1/block.getMass()) * calc.getFnet()[1]);
         acceleration[2] = ((1/block.getMass()) * calc.getFnet()[2]);
 
-        //region prints for debug
-//        //print outs
-//        System.out.println("Block Details: ");
-//        System.out.println(block);
-//        System.out.println("Starting Conditions: ");
-//        System.out.println("Normal Vector: "+Arrays.toString(nrml));
-//        System.out.println("Force of Gravity: "+Arrays.toString(grav));
-//        System.out.println("Coefficient of static friction: " + statFric);
-//        System.out.println("Coefficient of kinetic friction: " + kineFric);
-
         LinkedList<Double> t = new LinkedList<>();
         LinkedList<double[]> posTracker = new LinkedList<>();
         LinkedList<double[]> velTracker = new LinkedList<>();
 
-        posTracker.add(block.getPos());
-        velTracker.add(block.getVel());
+        posTracker.add(roundVec((block.getPos())));
+        velTracker.add(roundVec(block.getVel()));
 
         double time;
         int step = 1;
@@ -66,7 +60,7 @@ public class Main {
 
         if(calc.isStatic(calc.getFn(), calc.getFgp())){
             System.out.println("Static friction is enough to keep object static.");
-            System.out.println("Fnet = " + Arrays.toString(calc.getFnet()));
+            System.out.println("Fnet = " + Arrays.toString(calc.getFnet()) + " N");
 
         }
         else{
@@ -76,35 +70,50 @@ public class Main {
                 time = tn(i, h);
                 t.add(time);
                 //pn
-                posTracker.add(nextCalc(posTracker.get(step - 1), velTracker.get(step - 1), h));
+                posTracker.add(roundVec(nextCalc(posTracker.get(step - 1), velTracker.get(step - 1), h)));
 
                 //vn
-                velTracker.add(nextCalc(velTracker.get(step - 1), acceleration, h));
+                velTracker.add(roundVec(nextCalc(velTracker.get(step - 1), acceleration, h)));
 
                 step++;
             }
 
         }
+        System.out.println("Situation: " + "\n");
+        System.out.println("Block mass: " + block.getMass() + "Kg.");
+        System.out.println("Normal Vector : " + Arrays.toString(roundVec(nrml)));
+        System.out.println("Coefficient of static friction: " + statFric);
+        System.out.println("Coefficient of kinetic friction: " + kineFric);
+        System.out.println("Gravity: " + Arrays.toString(roundVec((grav))) + "\n");
 
-        System.out.println("Start time: " + startTime);
+        System.out.println("Timings: " + "\n");
+        System.out.println("Start time: " + startTime + " seconds.");
         System.out.println("Target time: " + target);
         System.out.println("Number of steps: " + timeSteps);
+        System.out.println("Step size: " + h + "\n");
 
-        System.out.println("Step size: " + h);
-        System.out.println("Acceleration is: "+Arrays.toString(acceleration));
-        System.out.println("Position at time: 0.0 is: "+Arrays.toString(posTracker.getFirst()));
-        System.out.println("Velocity at time: 0.0 is: "+Arrays.toString(velTracker.getFirst()));
+        System.out.println("Initial condition: "+ "\n");
+        System.out.println("Position at time: 0.0 is: "+Arrays.toString(roundVec(posTracker.getFirst())) + " m.");
+        System.out.println("Velocity at time: 0.0 is: "+Arrays.toString(roundVec(velTracker.getFirst())) + " m/s.");
+        System.out.println("Acceleration is: "+Arrays.toString(roundVec(acceleration)) + "ms^2." + "\n");
+
+        System.out.println("Summation of forces: " + "\n");
+        System.out.println("Force due to gravity: " + Arrays.toString(roundVec(calc.getFg())) + " N.");
+        System.out.println("Force due to in direction of Normal: " + Arrays.toString(roundVec(calc.getFgn())) + " N.");
+        System.out.println("Force due to in direction of Normal: " + Arrays.toString(roundVec(calc.getFgn())) + " N.");
+        System.out.println("Force of gravity in direction of Plane: " +  Arrays.toString(roundVec(calc.getFgp())) + " N.");
+        System.out.println("Static Friction: " + (calc.getStatFric() * calc.magCalc(calc.getFn())) + " N.");
+        System.out.println("Kinetic Friction: " + Arrays.toString(roundVec(calc.getFf())) + " N.");
+        System.out.println("Net Force: " + Arrays.toString(roundVec(calc.getFnet())) + " N." + "\n");
+
 
         for(int i = 0; i < step-1; i++){
             System.out.println(i+1);
-            System.out.println("Position at time: "+ round(t.get(i))+ " is: "+Arrays.toString(posTracker.get(i)));
-            System.out.println("Velocity at time: "+round(t.get(i))+" is: "+Arrays.toString(velTracker.get(i)));
+            System.out.println("Position at time: "+ round(t.get(i))+ " is: "+Arrays.toString(posTracker.get(i)) + " m.");
+            System.out.println("Velocity at time: "+round(t.get(i))+" is: "+Arrays.toString(velTracker.get(i)) + " m/s.");
         }
 
-        System.setOut(out);
-        System.out.println("Test");
         System.setOut(console);
-
     }
 
     static double tn(double t, double h){
@@ -127,8 +136,14 @@ public class Main {
         bigNum = Double.parseDouble(s);
         return bigNum;
     }
-    public String convertToCsv(String[] data){
-        return Stream.of(data).map(this::escapeSpecialCharacters).collect(Collectors.joining(","));
+    static double[] roundVec(double[] bigVec){
+        String s;
+        for(int i = 0; i < bigVec.length; i++){
+            double temp = bigVec[i];
+            s = String.format("%.5g%n", temp);
+            bigVec[i] = Double.parseDouble(s);
+        }
+        return bigVec;
     }
 
     public String escapeSpecialCharacters(String data){

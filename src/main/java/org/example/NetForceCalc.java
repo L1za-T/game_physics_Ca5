@@ -142,7 +142,10 @@ public class NetForceCalc {
         Fgp = subtractVec(Fg, Fgn);
         //Fn
         Fn = negVector(Fgn);
+
         Ff = negVector(Fgp);
+
+
 
         //Test for static friction
         if(isStatic(Fn, Fgp)){
@@ -152,73 +155,73 @@ public class NetForceCalc {
         }
         else {
             directFf = negVector(calcDirection(Fgp));
-            magFf = (kineFric * magCalc(Fn));
-            Ff[0] = (magFf * directFf[0]);
-            Ff[1] = (magFf * directFf[1]);
-            Ff[2] = (magFf * directFf[2]);
+            magFf = Main.round((kineFric * Main.round(magCalc(Fn))));
+            Ff[0] = Main.round((magFf * directFf[0]));
+            Ff[1] = Main.round((magFf * directFf[1]));
+            Ff[2] = Main.round((magFf * directFf[2]));
 
             Fnet = addVecs(Fgp, Ff);
         }
     }
     public double[] calcFg(double mass, double[] grav){
         double[] result = new double[3];
-        result[0] = (mass * grav[0]);
-        result[1] = (mass * grav[1]);
-        result[2] = (mass * grav[2]);
+        result[0] = Main.round((mass * grav[0]));
+        result[1] = Main.round((mass * grav[1]));
+        result[2] = Main.round((mass * grav[2]));
         return result;
     }
     public double[] calcFgn(double[] Fg, double[] directNrml){
         double[] result = new double[3];
         double dot = dotProduct(Fg, directNrml);
-        result[0] = (dot*directNrml[0]); //should be a negative for N[0] = -5
-        result[1] = (dot*directNrml[1]);
-        result[2] = (dot*directNrml[2]);
+        result[0] = Main.round((dot*directNrml[0]));
+        result[1] = Main.round((dot*directNrml[1]));
+        result[2] = Main.round((dot*directNrml[2]));
         return result;
     }
     public double[] subtractVec(double[] v1, double[] v2){
         double[] result = new double[3];
-        result[0] = (v1[0]-v2[0]);
-        result[1] = (v1[1]-v2[1]);
-        result[2] = (v1[2]-v2[2]);
+        result[0] = Main.round((v1[0]-v2[0]));
+        result[1] = Main.round((v1[1]-v2[1]));
+        result[2] = Main.round((v1[2]-v2[2]));
         return result;
     }
     public double[] calcDirection(double[] v){
         double[] result = new double[3];
         double vMag = magCalc(v);
-        result[0] = (1/vMag)* v[0];
-        result[1] = (1/vMag)* v[1];
-        result[2] = (1/vMag)* v[2];
+        result[0] = Main.round(((1/vMag)* v[0]));
+        result[1] = Main.round(((1/vMag)* v[1]));
+        result[2] = Main.round(((1/vMag)* v[2]));
         return result;
     }
     public double[] negVector(double[] v){
         double[] result = new double[3];
-        result[0] = (v[0]*-1);
-        result[1] = (v[1]*-1);
-        result[2] = (v[2]*-1);
+        result[0] = Main.round((v[0]*-1));
+        result[1] = Main.round((v[1]*-1));
+        result[2] = Main.round((v[2]*-1));
         return result;
     }
     public double magCalc(double[] vector) {
         double result;
         result = Math.sqrt((Math.pow(vector[0], 2) + Math.pow(vector[1], 2) + Math.pow(vector[2], 2)));
-        return result;
+        return Main.round(result);
     }
     public double dotProduct(double[] v1, double[] v2) {
         double result;
         result = (v1[0] * v2[0]) + (v1[1] * v2[1]) + (v1[2] * v2[2]);
-        return result;
+        return Main.round(result);
     }
     public double[] addVecs(double[] v1, double[] v2){
         double[] result = new double[3];
-        result[0] = v1[0] + v2[0];
-        result[1] = v1[1] + v2[1];
-        result[2] = v1[2] + v2[2];
+        result[0] = Main.round((v1[0] + v2[0]));
+        result[1] = Main.round((v1[1] + v2[1]));
+        result[2] = Main.round((v1[2] + v2[2]));
         return result;
     }
     public double[] multiplyVecConst(double[] v1, double f){
         double[] result = new double[3];
-        result[0] = v1[0] * f;
-        result[1] = v1[1] * f;
-        result[2] = v1[2] * f;
+        result[0] = Main.round((v1[0] * f));
+        result[1] = Main.round((v1[1] * f));
+        result[2] = Main.round((v1[2] * f));
 
         return result;
     }
