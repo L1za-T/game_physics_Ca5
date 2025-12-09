@@ -12,7 +12,6 @@ public class Main {
         PrintStream out = new PrintStream(new FileOutputStream("output.txt"));
         PrintStream console = System.out;
 
-
         //region Initial Conditions
         double target = 10;
         double startTime = 0;
@@ -53,30 +52,13 @@ public class Main {
 //        System.out.println("Force of Gravity: "+Arrays.toString(grav));
 //        System.out.println("Coefficient of static friction: " + statFric);
 //        System.out.println("Coefficient of kinetic friction: " + kineFric);
-//
-//        // Force Calculations
-//        System.out.println("Force Calculations: ");
-//        System.out.println("Magnitude of Normal Vector: " + calc.getMagNrml());
-//        System.out.println("Direction of Normal Vector: " + Arrays.toString(calc.getDirectNrml()));
-//        System.out.println("Fg: " + Arrays.toString(calc.getFg()));
-//        System.out.println("Fgn: " + Arrays.toString(calc.getFgn()));
-//        System.out.println("Fgp: " + Arrays.toString(calc.getFgp()));
-//        System.out.println("Magnitude of Fgp: " + calc.getMagFgp());
-//        System.out.println("Fn: " + Arrays.toString(calc.getFn()));
-//        System.out.println("Magnitude of Fn: " + calc.getMagFn());
-//        System.out.println("Net force on block " + Arrays.toString(calc.getFnet()));
-//        System.out.println("Acceleration: " + Arrays.toString(acceleration) + "m/s^2");
-        //endregion
 
         LinkedList<Double> t = new LinkedList<>();
         LinkedList<double[]> posTracker = new LinkedList<>();
         LinkedList<double[]> velTracker = new LinkedList<>();
-        LinkedList<double[]> accTracker = new LinkedList<>();
 
         posTracker.add(block.getPos());
         velTracker.add(block.getVel());
-        accTracker.add(acceleration);
-
 
         double time;
         int step = 1;
@@ -97,27 +79,26 @@ public class Main {
                 posTracker.add(nextCalc(posTracker.get(step - 1), velTracker.get(step - 1), h));
 
                 //vn
-                velTracker.add(nextCalc(velTracker.get(step - 1), accTracker.get(step - 1), h));
+                velTracker.add(nextCalc(velTracker.get(step - 1), acceleration, h));
 
-                //an
-                accTracker.add(calc.multiplyVecConst(nextCalc(accTracker.get(step - 1), accTracker.get(step - 1), kineFric),h));
-
-                System.out.println(time);
                 step++;
             }
 
         }
 
+        System.out.println("Start time: " + startTime);
+        System.out.println("Target time: " + target);
+        System.out.println("Number of steps: " + timeSteps);
 
-        System.out.println("Position at time: 0.0 is: "+Arrays.toString(posTracker.get(0)));
-        System.out.println("Velocity at time: 0.0 is: "+Arrays.toString(velTracker.get(0)));
-        System.out.println("Acceleration at time: 0.0 is: "+Arrays.toString(accTracker.get(0)));
+        System.out.println("Step size: " + h);
+        System.out.println("Acceleration is: "+Arrays.toString(acceleration));
+        System.out.println("Position at time: 0.0 is: "+Arrays.toString(posTracker.getFirst()));
+        System.out.println("Velocity at time: 0.0 is: "+Arrays.toString(velTracker.getFirst()));
 
         for(int i = 0; i < step-1; i++){
             System.out.println(i+1);
             System.out.println("Position at time: "+ round(t.get(i))+ " is: "+Arrays.toString(posTracker.get(i)));
             System.out.println("Velocity at time: "+round(t.get(i))+" is: "+Arrays.toString(velTracker.get(i)));
-            System.out.println("Acceleration at time: "+round(t.get(i))+" is: "+Arrays.toString(accTracker.get(i)));
         }
 
         System.setOut(out);
