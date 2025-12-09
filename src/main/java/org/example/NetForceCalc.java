@@ -18,7 +18,7 @@ public class NetForceCalc {
     double[] Fgp;
     double[] Fn;
     double[] Ff;
-    double[] Fnet;
+    double[] Fnet = {0,0,0};
 
     //endregion
 
@@ -145,15 +145,14 @@ public class NetForceCalc {
 
         Ff = negVector(Fgp);
 
+        this.Fnet[0] = 0;
+        this.Fnet[1] = 0;
+        this.Fnet[2] = 0;
 
 
         //Test for static friction
-        if(isStatic(Fn, Fgp)){
-            Fnet[0] = 0.0;
-            Fnet[1] = 0.0;
-            Fnet[2] = 0.0;
-        }
-        else {
+        if(!isStatic(Fn, Fgp)){
+
             directFf = negVector(calcDirection(Fgp));
             magFf = Main.round((kineFric * Main.round(magCalc(Fn))));
             Ff[0] = Main.round((magFf * directFf[0]));

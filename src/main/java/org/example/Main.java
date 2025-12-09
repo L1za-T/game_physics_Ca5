@@ -17,7 +17,7 @@ public class Main {
         //endregion
 
         //region Initial Conditions
-        double target = 10;
+        double target =  2;
         double startTime = 0;
         double timeSteps = 20;
 
@@ -29,17 +29,17 @@ public class Main {
 
         //Normal Vector
         double[] nrml = new double[3];
-        nrml[0] = -5;
-        nrml[1] = 4;
-        nrml[2] = 5;
+        nrml[0] = -3;
+        nrml[1] = 0;
+        nrml[2] = 1;
 
         //Static and Kinetic Friction
-        double statFric = 0.8;
-        double kineFric = 0.3;
+        double statFric = 0.1;
+        double kineFric = 0.05;
         //endregion
 
         //Block and Calculator initialisation
-        Block block = new Block(0.3, new double[] {1,2,3}, new double [] {0,0,0});
+        Block block = new Block(1.0, new double[] {0,0,0}, new double [] {0,0,0});
         NetForceCalc calc = new NetForceCalc(block.getMass(), nrml, grav, statFric, kineFric);
 
         double[] acceleration = new double[3];
@@ -60,6 +60,9 @@ public class Main {
 
         if(calc.isStatic(calc.getFn(), calc.getFgp())){
             System.out.println("Static friction is enough to keep object static.");
+            calc.Fnet[0] = 0;
+            calc.Fnet[1] = 0;
+            calc.Fnet[2] = 0;
             System.out.println("Fnet = " + Arrays.toString(calc.getFnet()) + " N");
 
         }

@@ -1,0 +1,33 @@
+Static friction is enough to keep object static.
+Fnet = [0.0, 0.0, 0.0] N
+Situation: 
+
+Block mass: 2.0Kg.
+Normal Vector : [0.0, 0.0, 1.0]
+Coefficient of static friction: 0.05
+Coefficient of kinetic friction: 0.03
+Gravity: [0.0, 0.0, -9.81]
+
+Timings: 
+
+Start time: 0.0 seconds.
+Target time: 5.0
+Number of steps: 10.0
+Step size: 0.5
+
+Initial condition: 
+
+Position at time: 0.0 is: [0.0, 0.0, 0.0] m.
+Velocity at time: 0.0 is: [0.0, 0.0, 0.0] m/s.
+Acceleration is: [0.0, 0.0, 0.0]ms^2.
+
+Summation of forces: 
+
+Force due to gravity: [0.0, 0.0, -19.62] N.
+Force due to in direction of Normal: [-0.0, -0.0, -19.62] N.
+Force due to in direction of Normal: [-0.0, -0.0, -19.62] N.
+Force of gravity in direction of Plane: [0.0, 0.0, 0.0] N.
+Static Friction: 0.9810000000000001 N.
+Kinetic Friction: [-0.0, -0.0, -0.0] N.
+Net Force: [0.0, 0.0, 0.0] N.
+

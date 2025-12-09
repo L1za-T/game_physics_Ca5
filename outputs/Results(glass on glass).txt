@@ -1,0 +1,91 @@
+Situation: 
+
+Block mass: 1.0Kg.
+Normal Vector : [-1.0, 0.0, 2.0]
+Coefficient of static friction: 0.4
+Coefficient of kinetic friction: 0.3
+Gravity: [0.0, 0.0, -9.81]
+
+Timings: 
+
+Start time: 0.0 seconds.
+Target time: 5.0
+Number of steps: 20.0
+Step size: 0.25
+
+Initial condition: 
+
+Position at time: 0.0 is: [0.0, 0.0, 0.0] m.
+Velocity at time: 0.0 is: [0.0, 0.0, 0.0] m/s.
+Acceleration is: [-1.5697, 0.0, -0.785]ms^2.
+
+Summation of forces: 
+
+Force due to gravity: [0.0, 0.0, -9.81] N.
+Force due to in direction of Normal: [3.9239, -0.0, -7.8477] N.
+Force due to in direction of Normal: [3.9239, -0.0, -7.8477] N.
+Force of gravity in direction of Plane: [-3.9239, 0.0, -1.9623] N.
+Static Friction: 3.5096 N.
+Kinetic Friction: [2.3542, -0.0, 1.1773] N.
+Net Force: [-1.5697, 0.0, -0.785] N.
+
+1
+Position at time: 0.25 is: [0.0, 0.0, 0.0] m.
+Velocity at time: 0.25 is: [0.0, 0.0, 0.0] m/s.
+2
+Position at time: 0.5 is: [0.0, 0.0, 0.0] m.
+Velocity at time: 0.5 is: [-0.39243, 0.0, -0.19625] m/s.
+3
+Position at time: 0.75 is: [-0.098108, 0.0, -0.049063] m.
+Velocity at time: 0.75 is: [-0.78486, 0.0, -0.3925] m/s.
+4
+Position at time: 1.0 is: [-0.29432, 0.0, -0.14719] m.
+Velocity at time: 1.0 is: [-1.1773, 0.0, -0.58875] m/s.
+5
+Position at time: 1.25 is: [-0.58865, 0.0, -0.29438] m.
+Velocity at time: 1.25 is: [-1.5697, 0.0, -0.785] m/s.
+6
+Position at time: 1.5 is: [-0.98108, 0.0, -0.49063] m.
+Velocity at time: 1.5 is: [-1.9621, 0.0, -0.98125] m/s.
+7
+Position at time: 1.75 is: [-1.4716, 0.0, -0.73594] m.
+Velocity at time: 1.75 is: [-2.3545, 0.0, -1.1775] m/s.
+8
+Position at time: 2.0 is: [-2.0602, 0.0, -1.0303] m.
+Velocity at time: 2.0 is: [-2.7469, 0.0, -1.3738] m/s.
+9
+Position at time: 2.25 is: [-2.7469, 0.0, -1.3738] m.
+Velocity at time: 2.25 is: [-3.1393, 0.0, -1.5701] m/s.
+10
+Position at time: 2.5 is: [-3.5317, 0.0, -1.7663] m.
+Velocity at time: 2.5 is: [-3.5317, 0.0, -1.7664] m/s.
+11
+Position at time: 2.75 is: [-4.4146, 0.0, -2.2079] m.
+Velocity at time: 2.75 is: [-3.9241, 0.0, -1.9627] m/s.
+12
+Position at time: 3.0 is: [-5.3956, 0.0, -2.6986] m.
+Velocity at time: 3.0 is: [-4.3165, 0.0, -2.159] m/s.
+13
+Position at time: 3.25 is: [-6.4747, 0.0, -3.2383] m.
+Velocity at time: 3.25 is: [-4.7089, 0.0, -2.3553] m/s.
+14
+Position at time: 3.5 is: [-7.6519, 0.0, -3.8271] m.
+Velocity at time: 3.5 is: [-5.1013, 0.0, -2.5516] m/s.
+15
+Position at time: 3.75 is: [-8.9272, 0.0, -4.465] m.
+Velocity at time: 3.75 is: [-5.4937, 0.0, -2.7479] m/s.
+16
+Position at time: 4.0 is: [-10.301, 0.0, -5.152] m.
+Velocity at time: 4.0 is: [-5.8861, 0.0, -2.9442] m/s.
+17
+Position at time: 4.25 is: [-11.773, 0.0, -5.8881] m.
+Velocity at time: 4.25 is: [-6.2785, 0.0, -3.1405] m/s.
+18
+Position at time: 4.5 is: [-13.343, 0.0, -6.6732] m.
+Velocity at time: 4.5 is: [-6.6709, 0.0, -3.3368] m/s.
+19
+Position at time: 4.75 is: [-15.011, 0.0, -7.5074] m.
+Velocity at time: 4.75 is: [-7.0633, 0.0, -3.5331] m/s.
+20
+Position at time: 5.0 is: [-16.777, 0.0, -8.3907] m.
+Velocity at time: 5.0 is: [-7.4557, 0.0, -3.7294] m/s.
